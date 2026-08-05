@@ -1,0 +1,2 @@
+[console_scripts]
+ec-dispute = ec_dispute.main:main

@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: olist-multi-agent-dispute
+Version: 0.1.0
+Summary: Giải pháp cá nhân cho bài Multi-Agent E-commerce Dispute Resolution
+Requires-Python: >=3.11
