@@ -7,6 +7,6 @@ OUTPUT_DIR = ROOT_DIR / "output"
 LOGGING_DIR = ROOT_DIR / "logging"
 
 POLICY_VERSION = "EC_POLICY_V2"
-MODEL_NAME = "deterministic-python"
-MODEL_PARAMETER_SIZE = "N/A"
+MODEL_NAME = "deterministic-rule-engine"
+MODEL_PARAMETER_SIZE = "0B"
 FRAMEWORK_NAME = "custom-python-a2a"

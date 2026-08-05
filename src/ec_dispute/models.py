@@ -26,11 +26,20 @@ class PaymentAnalysis:
 
 
 @dataclass(frozen=True)
+class SellerHandoff:
+    seller_id: str
+    shipping_limit_at: str
+    handoff_variance_hours: Decimal | None
+    late_handoff: bool
+
+
+@dataclass(frozen=True)
 class DeliveryAnalysis:
     delivered_at: str | None
     estimated_at: str | None
     carrier_handoff_at: str | None
     delivery_variance_hours: Decimal | None
+    seller_handoff_analysis: tuple[SellerHandoff, ...] = field(default_factory=tuple)
     late_handoff_seller_ids: tuple[str, ...] = field(default_factory=tuple)
 
 

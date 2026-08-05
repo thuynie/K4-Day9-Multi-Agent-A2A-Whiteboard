@@ -1,5 +1,5 @@
 from ..data_repository import DataRepository
-from ..models import DeliveryAnalysis
+from ..models import DeliveryAnalysis, SellerHandoff
 from ..utils import hours_between, parse_timestamp, unique_in_order
 
 
@@ -17,10 +17,16 @@ class DeliveryAgent:
             current = earliest_limit.get(seller_id)
             if current is None or parse_timestamp(item["shipping_limit_date"]) < parse_timestamp(current):
                 earliest_limit[seller_id] = item["shipping_limit_date"]
-        late_sellers = tuple(
-            seller_id for seller_id in seller_order
-            if (variance := hours_between(carrier, earliest_limit[seller_id])) is not None and variance > 0
+        handoffs = tuple(
+            SellerHandoff(
+                seller_id=seller_id,
+                shipping_limit_at=earliest_limit[seller_id],
+                handoff_variance_hours=hours_between(carrier, earliest_limit[seller_id]),
+                late_handoff=(variance := hours_between(carrier, earliest_limit[seller_id])) is not None and variance > 0,
+            )
+            for seller_id in seller_order
         )
+        late_sellers = tuple(value.seller_id for value in handoffs if value.late_handoff)
         delivered = order["order_delivered_customer_date"] or None
         estimated = order["order_estimated_delivery_date"] or None
         return DeliveryAnalysis(
@@ -28,5 +34,6 @@ class DeliveryAgent:
             estimated_at=estimated,
             carrier_handoff_at=carrier,
             delivery_variance_hours=hours_between(delivered, estimated),
+            seller_handoff_analysis=handoffs,
             late_handoff_seller_ids=late_sellers,
         )
