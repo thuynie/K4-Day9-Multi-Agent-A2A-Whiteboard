@@ -1,7 +1,7 @@
 # Kiến trúc giải pháp cá nhân — Multi-Agent E-commerce Dispute Resolution
 
-> Trạng thái: bộ khung đang phát triển trên nhánh `solution/02020-DuongTienDung`.
-> Tài liệu này phải được cập nhật theo implementation thực tế trước khi nộp.
+> Implementation deterministic đã được chạy và kiểm chứng trên nhánh
+> `solution/02020-DuongTienDung`.
 
 ## 1. Mục tiêu
 
@@ -75,10 +75,18 @@ flowchart TD
 Trace không ghi secret hoặc chain-of-thought. Một case lỗi khiến CLI trả exit code
 khác 0 và không ghi output chưa được xác minh.
 
-## 8. Các phần còn phải hoàn thiện
+## 8. Runtime và model
 
-- Hoàn chỉnh output builder theo schema README.
-- Hoàn chỉnh verifier và JSON Schema.
-- Thêm unit/integration tests cho toàn bộ policy.
-- Chọn model <=10B nếu sử dụng LLM và cập nhật metadata.
-- Chạy thật 50 case, kiểm tra output, rồi cập nhật trạng thái tài liệu này.
+Các agent hiện là agent deterministic bằng Python, không gọi LLM. Vì vậy không có
+agent nào vượt giới hạn model 10B và kết quả không phụ thuộc sampling. Metadata ghi
+`deterministic-rule-engine`, parameter size `0B`, provider `local-code`. Nếu nhóm thay
+bằng LLM ở bước tích hợp, tên model phải khai báo trong source, model không quá 10B
+và toàn bộ output vẫn phải qua verifier hiện tại.
+
+## 9. Kết quả kiểm chứng
+
+- 50/50 input tìm thấy claimed order.
+- 50/50 case được sinh output và verifier chấp nhận.
+- 0 case thất bại trong lần chạy gần nhất.
+- Phân bố issue: 8 canceled, 6 unavailable, 10 late seller, 10 late logistics,
+  8 valid split payment và 8 unsupported late claim.

@@ -19,16 +19,27 @@ python -m ec_dispute.main --check-data
 python -m unittest discover -s tests -v
 ```
 
-## 2. Thứ tự hoàn thiện
+## 2. Chạy toàn bộ bài
 
-1. Mở rộng Delivery Agent để xuất `seller_handoff_analysis` cho từng seller.
-2. Xây secondary issues và resolution actions theo đúng thứ tự README.
-3. Xây output builder đủ toàn bộ schema.
-4. Xây evidence builder chỉ dùng ID whitelist.
-5. Mở rộng Verifier để tái tính mọi field quan trọng và kiểm tra array limit.
-6. Tích hợp TraceWriter, tạo `metadata.json` và lệnh `--run-all`.
-7. Chỉ ghi output khi verifier pass.
-8. Thêm unit/integration tests, chạy 50 case và hoàn thiện báo cáo cá nhân.
+Chạy test trước, sau đó chạy pipeline:
+
+```powershell
+python -m unittest discover -s tests -v
+python -m ec_dispute.main --run-all
+```
+
+`--run-all` xóa các `output/EC_*.json` cũ, truncate trace cũ, xử lý 50 case,
+chỉ ghi output sau khi verifier pass và tạo metadata của lần chạy mới nhất.
+
+Kiểm tra số file và nội dung ZIP trước khi nộp:
+
+```powershell
+(Get-ChildItem output -Filter "EC_*.json").Count
+Compress-Archive -Path output\EC_*.json -DestinationPath output.zip -Force
+tar -tf output.zip
+```
+
+ZIP chỉ dùng để nộp, không commit `output.zip` vào repository.
 
 ## 3. Mốc kiểm chứng
 
@@ -41,16 +52,13 @@ valid_split_payment       8
 unsupported_late_claim    8
 ```
 
-## 4. Quy tắc commit
+## 4. Quy tắc commit đề xuất
 
 ```text
-chore: cấu hình bộ khung dự án cá nhân
-feat: xây dựng tầng truy xuất dữ liệu Olist
-feat: triển khai các tác nhân phân tích domain
-feat: áp dụng chính sách EC_POLICY_V2
-feat: bổ sung verifier và sinh output cho 50 case
-test: kiểm chứng policy và toàn bộ output
+feat: xây dựng giải pháp multi-agent xử lý khiếu nại Olist
+test: bổ sung kiểm thử chính sách và 50 trường hợp đầu vào
 docs: hoàn thiện kiến trúc và báo cáo cá nhân
+data: cập nhật output và nhật ký của lần chạy đã kiểm chứng
 ```
 
 Trước mỗi commit:

@@ -6,6 +6,7 @@ src/ec_dispute/data_repository.py
 src/ec_dispute/main.py
 src/ec_dispute/models.py
 src/ec_dispute/orchestrator.py
+src/ec_dispute/output_builder.py
 src/ec_dispute/utils.py
 src/ec_dispute/agents/__init__.py
 src/ec_dispute/agents/customer_agent.py
@@ -15,6 +16,7 @@ src/ec_dispute/agents/payment_agent.py
 src/ec_dispute/agents/policy_agent.py
 src/ec_dispute/agents/verifier_agent.py
 src/ec_dispute/observability/__init__.py
+src/ec_dispute/observability/metadata_writer.py
 src/ec_dispute/observability/trace_writer.py
 src/ec_dispute/policies/__init__.py
 src/ec_dispute/policies/ec_policy_v2.py
@@ -24,3 +26,4 @@ src/olist_multi_agent_dispute.egg-info/dependency_links.txt
 src/olist_multi_agent_dispute.egg-info/entry_points.txt
 src/olist_multi_agent_dispute.egg-info/top_level.txt
 tests/test_foundation.py
+tests/test_integration.py

@@ -1,0 +1,21 @@
+{
+  "run_id": "20260805T162702+0700",
+  "generated_at": "2026-08-05T16:27:02.184165+07:00",
+  "model": {
+    "name": "deterministic-rule-engine",
+    "parameter_size": "0B",
+    "provider": "local-code"
+  },
+  "framework": {
+    "name": "custom-python-a2a",
+    "version": "0.1.0"
+  },
+  "runtime": {
+    "python_version": "3.11.9",
+    "operating_system": "Windows-10-10.0.26200-SP0",
+    "cases_processed": 50,
+    "cases_succeeded": 50,
+    "cases_failed": 0
+  },
+  "policy_version": "EC_POLICY_V2"
+}
