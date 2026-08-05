@@ -27,7 +27,7 @@
 
 | Hoạt động | Thành viên/module được hỗ trợ | Kết quả |
 | ------------------------- | ----------------------------- | ----------------------- |
-| Hướng dẫn tích hợp LLM & Git branch | Toàn nhóm (Dũng, Trung) | Khởi tạo 3 nhánh Git độc lập và tích hợp Groq API Key trong `.env` |
+| Hướng dẫn tích hợp LLM & Git branch | Dương Tiến Dũng | Hướng dẫn tích hợp Groq API Key trong `.env` và hỗ trợ quản lý Git branch |
 | Audit Schema & Limit Validation | Mọi module đầu ra | Đảm bảo 100% 50 file JSON tuân thủ các giới hạn mảng (max limits) và kiểu dữ liệu |
 
 ## 3. Kết quả theo vai trò
